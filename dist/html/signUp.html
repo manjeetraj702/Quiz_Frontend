@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0D1117; /* Dark background */
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center h-screen font-roboto">
+
+    <div class="bg-gradient-to-br from-indigo-800 to-purple-600 p-8 rounded-lg shadow-lg w-96">
+        <h2 class="text-3xl font-semibold text-center mb-6 text-white">Sign Up</h2>
+        <form id="signUpForm">
+            <div class="mb-4">
+                <label for="userName" class="block text-lg font-medium text-gray-200">Username</label>
+                <input type="text" id="userName" name="userName" required
+                    class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-900 text-gray-200 placeholder-gray-400 focus:ring focus:ring-blue-500"
+                    placeholder="Enter your username">
+            </div>
+            <div class="mb-4">
+                <label for="phoneNumber" class="block text-lg font-medium text-gray-200">Phone Number</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" required pattern="\d{10}"
+                    class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-900 text-gray-200 placeholder-gray-400 focus:ring focus:ring-blue-500"
+                    placeholder="Enter your phone number (10 digits)">
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-lg font-medium text-gray-200">Password</label>
+                <input type="password" id="password" name="password" required
+                    class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-900 text-gray-200 placeholder-gray-400 focus:ring focus:ring-blue-500"
+                    placeholder="Enter your password (min 6 characters)">
+            </div>
+            <div class="mb-4">
+                <label for="role" class="block text-lg font-medium text-gray-200">Role</label>
+                <select id="role" name="role" required
+                    class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-900 text-gray-200 focus:ring focus:ring-blue-500">
+                    <option value="" disabled selected>Select Role</option>
+                    <option value="student">Student</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit"
+                class="w-full bg-yellow-400 text-white font-semibold py-2 rounded-md hover:bg-yellow-300 transition duration-200 focus:outline-none focus:ring focus:ring-yellow-300">
+                Sign Up
+            </button>
+        </form>
+        <p class="mt-4 text-center text-lg text-gray-300">
+            Already have an account? <a href="signIn.html" class="text-yellow-400 hover:underline">Sign in</a>
+        </p>
+    </div>
+
+    <script src="../js/signUp.js">
+    </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0D1117; /* Dark background */
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center h-screen font-roboto ">
+
+    <div class="bg-gradient-to-br from-indigo-800 to-purple-600 p-8 rounded-lg shadow-lg w-96">
+        <h2 class="text-3xl font-semibold text-center mb-6 text-white">Sign In</h2>
+        <form id="signInForm">
+            <div class="mb-4">
+                <label for="phoneNumber" class="block text-lg font-medium text-gray-200">Phone Number</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" required
+                    class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-900 text-gray-200 placeholder-gray-400 focus:ring focus:ring-blue-500"
+                    placeholder="Enter your phone number">
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-lg font-medium text-gray-200">Password</label>
+                <input type="password" id="password" name="password" required
+                    class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-900 text-gray-200 placeholder-gray-400 focus:ring focus:ring-blue-500"
+                    placeholder="Enter your password">
+            </div>
+            <button type="submit"
+                class="w-full bg-yellow-400 text-white font-semibold py-2 rounded-md hover:bg-yellow-300 transition duration-200 focus:outline-none focus:ring focus:ring-yellow-300">
+                Sign In
+            </button>
+        </form>
+        <p class="mt-4 text-center text-lg text-gray-300">
+            Don't have an account? <a href="signUp.html" class="text-yellow-400 hover:underline">Sign up</a>
+        </p>
+    </div>
+    <div id="toast" class="fixed bottom-5 right-5 hidden bg-green-500 text-white p-4 rounded-lg shadow-lg">
+        Sign in successful!
+    </div>
+
+    <script src="../js/signIn.js"></script>
+
+</body>
+
+</html>

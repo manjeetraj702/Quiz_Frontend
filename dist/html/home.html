@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Screen - Quiz Management</title>
+    <link href="../style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-800 text-gray-200">
+
+    <!-- Dashboard Layout -->
+    <div class="flex">
+
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-900 text-white h-screen p-5 hidden md:block">
+            <h2 class="text-2xl font-bold text-center mb-6">Dashboard</h2>
+            <nav>
+                <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded transition">Home</a>
+                <a href="/quizzes" class="block py-2 px-4 hover:bg-gray-700 rounded transition">Quizzes</a>
+                <a href="/reports" class="block py-2 px-4 hover:bg-gray-700 rounded transition">Reports</a>
+                <a href="/settings" class="block py-2 px-4 hover:bg-gray-700 rounded transition">Settings</a>
+                <a href="../html/signIn.html" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="logoutButton">Logout</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-5">
+            <nav class="h-20 bg-gray-900 flex items-center justify-center text-white text-4xl">
+                Quiz Management Home
+            </nav>
+
+            <div class="container mx-auto mt-5">
+                <h3 class="font-bold mb-6 text-center text-2xl">Welcome to the Quiz Management Dashboard</h3>
+
+                <!-- Stats Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                    <!-- Admin Stats -->
+                    <div class="bg-gradient-to-r from-blue-600 to-blue-400 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                        <h4 class="text-xl font-bold mb-2">Total Quizzes</h4>
+                        <p class="text-3xl">5</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-green-600 to-green-400 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                        <h4 class="text-xl font-bold mb-2">Active Quizzes</h4>
+                        <p class="text-3xl">3</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-yellow-600 to-yellow-400 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                        <h4 class="text-xl font-bold mb-2">Pending Quizzes</h4>
+                        <p class="text-3xl">2</p>
+                    </div>
+                    <!-- Student Stats -->
+                    <div class="bg-gradient-to-r from-purple-600 to-purple-400 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                        <h4 class="text-xl font-bold mb-2">Upcoming Quizzes</h4>
+                        <p class="text-3xl">2</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-red-600 to-red-400 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                        <h4 class="text-xl font-bold mb-2">Completed Quizzes</h4>
+                        <p class="text-3xl">5</p>
+                    </div>
+                </div>
+
+                <div class="mt-10 text-center">
+                    <h4 class="text-xl font-bold mb-4">Quick Actions</h4>
+                    <div class="flex justify-center">
+                        <a href="/create-quiz" class="bg-green-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-green-700 transition">Create New Quiz</a>
+                        <a href="/quizzes" class="ml-4 bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition">Manage Quizzes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Assume role is determined by some logic (this is just an example)
+        const userRole = 'admin'; // Change to 'admin' or 'student' based on actual user role
+
+        // Show or hide content based on the user role
+        document.querySelectorAll('.admin-only').forEach(el => {
+            el.style.display = userRole === 'admin' ? 'block' : 'none';
+        });
+        document.querySelectorAll('.student-only').forEach(el => {
+            el.style.display = userRole === 'student' ? 'block' : 'none';
+        });
+    </script>
+    <script src="../js/common.js"></script>
+</body>
+
+</html>
