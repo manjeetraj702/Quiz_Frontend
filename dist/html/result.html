@@ -8,34 +8,22 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-800 text-gray-200">
+<body class="bg-gray-800 text-gray-200 md:bg-no-repeat">
+    <div id="loader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
+        <!-- Smaller Spinner -->
+        <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
 
     <div class="container mx-auto p-5 md:p-10">
         <h1 class="text-3xl font-bold text-center mb-6">Quiz Results</h1>
 
         <div class="bg-gray-900 p-5 rounded-lg shadow-lg">
-            <h2 class="text-xl font-semibold mb-4">Your Score: <span id="score" class="text-green-400">8</span>/10</h2>
-            <p class="mb-4">Great job! You scored above average.</p>
+            <h2 class="text-xl font-semibold mb-4">Your Score: <span id="score" class="inline text-green-400">0</span></h2>
+            <p id="feedback" class="mb-4"></p>
 
             <h3 class="text-lg font-semibold mb-2">Answers Summary:</h3>
-            <ul class="list-disc list-inside mb-4">
-                <li class="flex justify-between">
-                    <span>Question 1: What is the capital of France?</span>
-                    <span class="text-green-400">Correct</span>
-                </li>
-                <li class="flex justify-between">
-                    <span>Question 2: What is 2 + 2?</span>
-                    <span class="text-red-400">Incorrect (Correct answer: 4)</span>
-                </li>
-                <li class="flex justify-between">
-                    <span>Question 3: What is the largest planet in our solar system?</span>
-                    <span class="text-green-400">Correct</span>
-                </li>
-                <li class="flex justify-between">
-                    <span>Question 4: Who wrote 'Hamlet'?</span>
-                    <span class="text-red-400">Incorrect (Correct answer: Shakespeare)</span>
-                </li>
-                <!-- Add more questions as needed -->
+            <ul id="answers-summary" class="list-disc mb-4">
+                <!-- Answers summary will be dynamically inserted here -->
             </ul>
 
             <div class="flex flex-col md:flex-row justify-between mt-4">
@@ -45,16 +33,9 @@
         </div>
     </div>
 
-    <script>
-        function restartQuiz() {
-            // Logic to restart the quiz
-            window.location.href = "quiz.html"; // Change to your quiz page URL
-        }
-
-        function goHome() {
-            // Logic to go back to the home page
-            window.location.href = "index.html"; // Change to your home page URL
-        }
+    <script src="../js/result.js">
+        // Function to load the quiz results from sessionStorage
+      
     </script>
 </body>
 

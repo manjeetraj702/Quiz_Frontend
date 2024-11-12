@@ -6,57 +6,62 @@
     <title>Create Quiz</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #1a1a2e; /* Dark background */
-        }
-    </style>
+    
 </head>
-<body class="font-roboto">
-    <nav class="h-20 bg-gray-900 text-center text-white text-4xl flex items-center justify-center shadow-md">Admin - Create Quiz</nav>
-    <div class="container mx-auto p-5 bg-gray-900 rounded-lg shadow-lg">
-        <form id="quizForm" class="shadow-lg rounded-lg border-4 border-blue-400 bg-gray-800 p-6">
-            <h3 class="font-bold mb-6 text-center text-2xl text-blue-400">Create Quiz</h3>
-            
-            <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-300">Quiz Title</label>
-                <input type="text" id="title" name="title" required 
-                class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500" placeholder="Enter quiz title">
+<body class="font-roboto bg-cover  h-lvh md:bg-no-repeat " style="background-image: url('../img/backg.jpg');" >
+    <div id="loader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
+        <!-- Smaller Spinner -->
+        <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    <header>
+        <nav class="h-16 bg-gradient-to-bl from-indigo-600 to-gray-900 text-center text-4xl font-extrabold py-2">
+            Quizzo
+        </nav>
+    </header>
+    <div class="flex">
+        <aside class="w-64 bg-gray-900 text-white h-screen p-5 hidden md:block">
+            <h2 class="text-2xl font-bold text-center mb-6">Dashboard</h2>
+            <nav>
+                <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="home">Home</a>
+                <a href="../html/quizList.html" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="quizzes">Quizzes</a>
+                <a href="/reports" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="reports">Reports</a>
+                <a href="../html/signIn.html" class="block py-2 px-4 hover:bg-red-600 rounded transition"
+                    id="logoutButton">Logout</a>
+            </nav>
+        </aside>
+        <div class="flex-1 p-5">
+            <div class="container mx-auto p-5 bg-gray-900 rounded-lg shadow-lg ">
+                <form id="quizForm" class="shadow-lg rounded-lg border-4 border-blue-400 bg-gray-800 p-6">
+                    <h3 class="font-bold mb-6 text-center text-2xl text-blue-400">Create Quiz</h3>
+                    
+                    <div class="mb-4">
+                        <label for="title" class="block text-sm font-medium text-gray-300">Quiz Title</label>
+                        <input type="text" id="title" name="title" required 
+                        class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500" placeholder="Enter quiz title">
+                    </div>
+        
+                    <div class="mb-4">
+                        <label for="description" class="block text-sm font-medium text-gray-300">Description</label>
+                        <textarea name="description" id="description" required
+                        class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500" placeholder="Enter quiz description"></textarea>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="duration" class="block text-sm font-medium text-gray-300">Duration (minutes)</label>
+                        <input type="number" id="duration" name="duration" required 
+                        class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500" placeholder="Enter duration in minutes" min="1" max="360">
+                    </div>
+        
+                    <button type="button" onclick="submitQuiz()"
+                            class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-200">
+                        Create Quiz
+                    </button>
+                </form>
             </div>
-
-            <div class="mb-4">
-                <label for="description" class="block text-sm font-medium text-gray-300">Description</label>
-                <textarea name="description" id="description" required
-                class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500" placeholder="Enter quiz description"></textarea>
-            </div>
-            
-            <div class="mb-4">
-                <label for="duration" class="block text-sm font-medium text-gray-300">Duration (minutes)</label>
-                <input type="number" id="duration" name="duration" required 
-                class="mt-1 block w-full border border-gray-600 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500" placeholder="Enter duration in minutes" min="1" max="360">
-            </div>
-
-            <button type="button" onclick="submitQuiz()"
-                    class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-200">
-                Create Quiz
-            </button>
-        </form>
+        </div>
     </div>
 
-    <script>
-        function submitQuiz() {
-            const title = document.getElementById('title').value;
-            const description = document.getElementById('description').value;
-            const duration = document.getElementById('duration').value;
-
-            // Store quiz details in sessionStorage (or send to the backend)
-            sessionStorage.setItem('quizTitle', title);
-            sessionStorage.setItem('quizDescription', description);
-            sessionStorage.setItem('quizDuration', duration);
-
-            // Redirect to the add questions page
-            window.location.href = 'addQuestions.html';
-        }
-    </script>
+   <script src="../js/createquiz.js"></script>
+   <script src="../js/common.js"></script>
 </body>
 </html>

@@ -6,32 +6,16 @@
     <title>Quiz Results List</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-800 text-gray-200">
-
+<body class="bg-gray-800 text-gray-200 bg-cover bg-center md:bg-no-repeat" style="background-image: url('../img/backg.jpg');">
+    <div id="loader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
+        <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
     <div class="container mx-auto p-5 md:p-10">
         <h1 class="text-3xl font-bold text-center mb-6">Your Quiz Results</h1>
 
         <div class="bg-gray-900 p-5 rounded-lg shadow-lg">
             <h2 class="text-xl font-semibold mb-4">Results Summary</h2>
-            <ul class="space-y-4">
-                <li class="flex justify-between items-center bg-gray-800 p-3 rounded">
-                    <span class="font-medium">General Knowledge Quiz</span>
-                    <span class="text-green-400">Score: 8/10</span>
-                </li>
-                <li class="flex justify-between items-center bg-gray-800 p-3 rounded">
-                    <span class="font-medium">Science Quiz</span>
-                    <span class="text-green-400">Score: 7/10</span>
-                </li>
-                <li class="flex justify-between items-center bg-gray-800 p-3 rounded">
-                    <span class="font-medium">History Quiz</span>
-                    <span class="text-red-400">Score: 5/10</span>
-                </li>
-                <li class="flex justify-between items-center bg-gray-800 p-3 rounded">
-                    <span class="font-medium">Geography Quiz</span>
-                    <span class="text-green-400">Score: 9/10</span>
-                </li>
-                <!-- Add more quizzes as needed -->
-            </ul>
+            <ul id="resultsList" class="space-y-4"></ul>
 
             <div class="mt-6 text-center">
                 <button class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500" onclick="goToHome()">Go to Home</button>
@@ -39,11 +23,8 @@
         </div>
     </div>
 
-    <script>
-        function goToHome() {
-            // Logic to go back to the home page
-            window.location.href = "index.html"; // Change to your home page URL
-        }
+    <script  src="../js/results.js">
+        // Function to fetch results dynamically based on userId
     </script>
 </body>
 </html>

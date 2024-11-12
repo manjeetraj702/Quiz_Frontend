@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #0D1117; /* Dark background */
-        }
-    </style>
+    
 </head>
 
-<body class="flex items-center justify-center h-screen font-roboto ">
+<body class="flex items-center justify-center h-screen font-roboto bg-cover md:bg-no-repeat " style="background-image: url('../img/backg.jpg');">
+    <div id="loader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
+        <!-- Smaller Spinner -->
+        <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
 
     <div class="bg-gradient-to-br from-indigo-800 to-purple-600 p-8 rounded-lg shadow-lg w-96">
         <h2 class="text-3xl font-semibold text-center mb-6 text-white">Sign In</h2>

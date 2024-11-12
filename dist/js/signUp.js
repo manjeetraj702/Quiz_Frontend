@@ -12,7 +12,7 @@ document.getElementById('signUpForm').addEventListener('submit', function(event)
         password: password,
         role: role
     };
-
+    showLoader()
     fetch('http://localhost:8080/ai/v1/user/signUp', {
         method: 'POST',
         headers: {
@@ -30,5 +30,16 @@ document.getElementById('signUpForm').addEventListener('submit', function(event)
     })
     .catch(error => {
         alert('Error: ' + error.message);
+    }).finally(()=>{
+        hideLoader()
     });
 });
+//loader
+function showLoader() {
+    document.getElementById("loader").classList.remove("hidden");
+  }
+  
+  // Function to hide loader
+  function hideLoader() {
+    document.getElementById("loader").classList.add("hidden");
+  }

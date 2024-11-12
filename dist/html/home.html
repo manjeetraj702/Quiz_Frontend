@@ -1,90 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Screen - Quiz Management</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quiz Management</title>
     <link href="../style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
+<body class="text-gray-200 bg-cover bg-no-repeat h-screen md:bg-no-repeat" style="background-image: url('../img/backg.jpg');">
+    <div id="loader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
+        <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+    <header>
+        <nav class="h-16 bg-gradient-to-bl from-indigo-600 to-gray-900 text-center text-2xl md:text-4xl font-extrabold py-2">
+            Quizzo
+        </nav>
+    </header>
 
-<body class="bg-gray-800 text-gray-200">
+    <!-- Overlay for Sidebar -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden md:hidden z-40" onclick="toggleSidebar()"></div>
 
     <!-- Dashboard Layout -->
-    <div class="flex">
-
+    <main class="flex flex-col md:flex-row relative">
+        
         <!-- Sidebar -->
-        <div class="w-64 bg-gray-900 text-white h-screen p-5 hidden md:block">
+        <aside id="sidebar" class="w-full md:w-64 bg-gray-900 text-white h-screen p-5 fixed inset-y-0 md:relative transform md:translate-x-0 -translate-x-full transition-transform duration-300 z-50">
             <h2 class="text-2xl font-bold text-center mb-6">Dashboard</h2>
             <nav>
-                <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded transition">Home</a>
-                <a href="/quizzes" class="block py-2 px-4 hover:bg-gray-700 rounded transition">Quizzes</a>
-                <a href="/reports" class="block py-2 px-4 hover:bg-gray-700 rounded transition">Reports</a>
-                <a href="/settings" class="block py-2 px-4 hover:bg-gray-700 rounded transition">Settings</a>
-                <a href="../html/signIn.html" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="logoutButton">Logout</a>
+                <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="home">Home</a>
+                <a href="../html/quizList.html" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="quizzes">Quizzes</a>
+                <a href="../html/results.html" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="reports">Reports</a>
+                <a href="../html/signIn.html" class="block py-2 px-4 hover:bg-red-600 rounded transition" id="logoutButton">Logout</a>
             </nav>
-        </div>
+        </aside>
 
         <!-- Main Content -->
-        <div class="flex-1 p-5">
-            <nav class="h-20 bg-gray-900 flex items-center justify-center text-white text-4xl">
+        <div class="flex-1 p-5 md:ml-64">
+            <button class="md:hidden bg-gray-800 text-white py-2 px-4 rounded mb-4" onclick="toggleSidebar()">Menu</button>
+
+            <nav class="h-20 bg-gray-900 flex items-center justify-center text-white text-2xl md:text-4xl">
                 Quiz Management Home
             </nav>
 
-            <div class="container mx-auto mt-5">
-                <h3 class="font-bold mb-6 text-center text-2xl">Welcome to the Quiz Management Dashboard</h3>
+            <section class="container mx-auto mt-5">
+                <h3 class="font-bold mb-6 text-center text-xl md:text-2xl">Welcome to the Quiz Management Dashboard</h3>
 
-                <!-- Stats Section -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                    <!-- Admin Stats -->
-                    <div class="bg-gradient-to-r from-blue-600 to-blue-400 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-                        <h4 class="text-xl font-bold mb-2">Total Quizzes</h4>
-                        <p class="text-3xl">5</p>
+                <!-- Admin Stats -->
+                <div id="admin" class="flex flex-col md:flex-row flex-wrap justify-center">
+                    <div class="bg-gradient-to-r from-blue-600 to-blue-400 p-6 rounded-lg shadow-lg w-full sm:w-1/2 md:w-1/3 mb-8 transform hover:scale-105 transition">
+                        <h4 class="text-lg md:text-xl font-bold mb-2">Total Quizzes</h4>
+                        <p class="text-2xl md:text-3xl total-quizzes">5</p>
                     </div>
-                    <div class="bg-gradient-to-r from-green-600 to-green-400 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-                        <h4 class="text-xl font-bold mb-2">Active Quizzes</h4>
-                        <p class="text-3xl">3</p>
+                    <div class="bg-gradient-to-r from-green-600 to-green-400 p-6 rounded-lg shadow-lg w-full sm:w-1/2 md:w-1/3 mb-8 transform hover:scale-105 transition">
+                        <h4 class="text-lg md:text-xl font-bold mb-2">Active Quizzes</h4>
+                        <p class="text-2xl md:text-3xl active-quizzes">3</p>
                     </div>
-                    <div class="bg-gradient-to-r from-yellow-600 to-yellow-400 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-                        <h4 class="text-xl font-bold mb-2">Pending Quizzes</h4>
-                        <p class="text-3xl">2</p>
-                    </div>
-                    <!-- Student Stats -->
-                    <div class="bg-gradient-to-r from-purple-600 to-purple-400 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-                        <h4 class="text-xl font-bold mb-2">Upcoming Quizzes</h4>
-                        <p class="text-3xl">2</p>
-                    </div>
-                    <div class="bg-gradient-to-r from-red-600 to-red-400 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-                        <h4 class="text-xl font-bold mb-2">Completed Quizzes</h4>
-                        <p class="text-3xl">5</p>
+                    <div class="bg-gradient-to-r from-yellow-600 to-yellow-400 p-6 rounded-lg shadow-lg w-full sm:w-1/2 md:w-1/3 mb-8 transform hover:scale-105 transition">
+                        <h4 class="text-lg md:text-xl font-bold mb-2">Inactive Quizzes</h4>
+                        <p class="text-2xl md:text-3xl inactive-quizzes">2</p>
                     </div>
                 </div>
 
+                <!-- Quick Actions -->
                 <div class="mt-10 text-center">
-                    <h4 class="text-xl font-bold mb-4">Quick Actions</h4>
-                    <div class="flex justify-center">
-                        <a href="/create-quiz" class="bg-green-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-green-700 transition">Create New Quiz</a>
-                        <a href="/quizzes" class="ml-4 bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition">Manage Quizzes</a>
+                    <h4 class="text-lg md:text-xl font-bold mb-4">Quick Actions</h4>
+                    <div class="flex justify-center space-x-4">
+                        <a href="createQuiz.html" class="bg-green-600 text-white py-2 px-4 md:py-3 md:px-6 rounded-lg shadow-lg hover:bg-green-700 transition">Create New Quiz</a>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </div>
+    </main>
 
+    <script src="../js/home.js" defer></script>
+    <script src="../js/common.js" defer></script>
     <script>
-        // Assume role is determined by some logic (this is just an example)
-        const userRole = 'admin'; // Change to 'admin' or 'student' based on actual user role
-
-        // Show or hide content based on the user role
-        document.querySelectorAll('.admin-only').forEach(el => {
-            el.style.display = userRole === 'admin' ? 'block' : 'none';
-        });
-        document.querySelectorAll('.student-only').forEach(el => {
-            el.style.display = userRole === 'student' ? 'block' : 'none';
-        });
+        // Toggle sidebar for mobile and show overlay
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
     </script>
-    <script src="../js/common.js"></script>
 </body>
-
 </html>

@@ -8,6 +8,7 @@ document.getElementById('signInForm').addEventListener('submit', function (event
         phoneNumber: phoneNumber,
         password: password
     };
+    showLoader()
 
     fetch('http://localhost:8080/ai/v1/user/signIn', {
         method: 'POST',
@@ -17,23 +18,90 @@ document.getElementById('signInForm').addEventListener('submit', function (event
         body: JSON.stringify(requestBody)
     })
         .then(response => response.json())
-        .then(data => {
-            if (data.errorMessage) {
-                alert(data.errorMessage); // Display error message from response
+        .then(data1 => {
+            if (data1.errorMessage) {
+                alert(data1.errorMessage); // Display error message from response
             } else {
+                sessionStorage.setItem('userdata', JSON.stringify(data1.data)); 
+    
+                // Check if the toast element exists before trying to manipulate it
                 const toast = document.getElementById('toast');
-                toast.classList.remove('hidden'); // Show toast
-                setTimeout(() => {
-                    toast.classList.add('hidden'); // Hide toast after 3 seconds
-                }, 8000)
-                // Display success message
-                sessionStorage.setItem('userData', JSON.stringify(data)); // Store user data
-                window.location.href = "../html/home.html";
+                if (toast) {
+                    // Store user data in sessionStorage
+                    console.log(data1.data);
 
+                    toast.classList.remove('hidden'); // Show toast
+                    setTimeout(() => {
+                        toast.classList.add('hidden'); // Hide toast after 8 seconds
+                    }, 8000);
+                }
 
+                // Redirect to home page
+               if(data1.data.role === "admin")
+               {
+               
+                window.location.replace("../html/home.html");
+               }
+               else 
+               {
+                showLoader()
+                fetch('http://localhost:8080/api/v1/Quiz/getAllActiveQuiz', {
+                    method: 'GET',
+                    headers: {
+                        'accept': '*/*'
+                    }
+                })
+                .then(response => {
+                    // Check if the response is successful (status 200)
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Log the active quizzes
+                    console.log('Active quizzes:', data.data);
+                
+                    // Ensure that 'data.data' is an array before saving it
+                    if (Array.isArray(data.data)) {
+                        // Save the quizzes in sessionStorage under the key 'quizzes'
+                        
+                
+                        sessionStorage.setItem('quizzes', JSON.stringify(data.data));
+                        console.log('Quizzes saved to sessionStorage');
+                
+                        // Optionally, redirect to another page (uncomment if needed)
+             
+                        window.location.replace('../html/quizList.html');
+                    } else {
+                        console.error('No quizzes found or invalid response structure');
+                        alert('No active quizzes found or invalid data format.');
+                    }
+                })
+                .catch(error => {
+                    // Log any errors that occur during the fetch request
+                    console.error('Error fetching active quizzes:', error);
+                    alert('Error fetching active quizzes. Please try again.');
+                }).finally(()=>{
+                    hideLoader()
+                });
+                
+                
+               }
             }
         })
         .catch(error => {
             alert('Error: ' + error.message); // Handle any network errors
+        }).finally(()=>{
+            hideLoader()
         });
 });
+//loader
+function showLoader() {
+    document.getElementById("loader").classList.remove("hidden");
+  }
+  
+  // Function to hide loader
+  function hideLoader() {
+    document.getElementById("loader").classList.add("hidden");
+  }

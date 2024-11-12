@@ -3,107 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz - Play</title>
+    <title>Take Quiz</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-800 text-gray-200">
-
-    <!-- Main Content -->
+<body class="bg-gray-800 text-gray-200 md:bg-no-repeat">
+    <div id="loader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
+        <!-- Smaller Spinner -->
+        <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
     <div class="container mx-auto p-5">
-        <h1 class="text-3xl font-bold text-center mb-6">Quiz Title: General Knowledge</h1>
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold text-center mb-4">Quiz Title: General Knowledge</h1>
+            <h2 id="question-title" class="text-xl font-semibold mb-4">Question 1</h2>
 
-        <div class="bg-gray-900 p-5 rounded-lg shadow">
-            <h2 class="text-xl font-semibold mb-4">Question 1: What is the capital of France?</h2>
             <form id="quiz-form">
-                <div class="mb-4">
-                    <label class="block">
-                        <input type="radio" name="answer" value="A" class="mr-2" required>
-                        A) Berlin
-                    </label>
-                    <label class="block">
-                        <input type="radio" name="answer" value="B" class="mr-2">
-                        B) Madrid
-                    </label>
-                    <label class="block">
-                        <input type="radio" name="answer" value="C" class="mr-2">
-                        C) Paris
-                    </label>
-                    <label class="block">
-                        <input type="radio" name="answer" value="D" class="mr-2">
-                        D) Rome
-                    </label>
+                <div id="question-options" class="mb-4">
+                    <!-- Dynamic answer options will be inserted here -->
                 </div>
 
                 <div class="flex justify-between">
-                    <button type="button" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700" onclick="prevQuestion()">Previous</button>
-                    <button type="button" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700" onclick="nextQuestion()">Next</button>
+                    <button type="button" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200" onclick="prevQuestion()">Previous</button>
+                    <button id="next-btn" type="button" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-200" onclick="nextQuestion()">Next</button>
                 </div>
             </form>
-        </div>
 
-        <div class="mt-5 text-center">
-            <p id="question-number" class="text-lg">Question 1 of 10</p>
-            <p id="timer" class="text-lg font-bold mt-3">Time Left: <span id="time">60</span> seconds</p>
+            <div class="mt-5 text-center">
+                <p id="question-number" class="text-lg">Question 1 of 10</p>
+                <p id="timer" class="text-lg font-bold mt-3">Time Left: <span id="time">600</span> seconds</p>
+            </div>
         </div>
     </div>
 
-    <script>
-        // JavaScript for quiz navigation and timer
-        let currentQuestion = 0;
-        const totalQuestions = 10; // Example total questions
-        let timeLeft = 60; // Time for each question in seconds
-        let timerInterval;
-
-        function startTimer() {
-            timerInterval = setInterval(function() {
-                timeLeft--;
-                document.getElementById('time').innerText = timeLeft;
-
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    alert("Time's up! Moving to the next question.");
-                    nextQuestion();
-                }
-            }, 1000);
-        }
-
-        function nextQuestion() {
-            // Logic to handle the next question
-            if (currentQuestion < totalQuestions - 1) {
-                currentQuestion++;
-                updateQuestion();
-            } else {
-                // Quiz finished logic here
-                alert("Quiz finished!");
-                // Optionally redirect or show results
-            }
-        }
-
-        function prevQuestion() {
-            // Logic to handle the previous question
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                updateQuestion();
-            }
-        }
-
-        function updateQuestion() {
-            // Update the question number display
-            document.getElementById('question-number').innerText = `Question ${currentQuestion + 1} of ${totalQuestions}`;
-            // Reset timer for each question
-            timeLeft = 60; // Reset timer to 60 seconds
-            document.getElementById('time').innerText = timeLeft;
-            clearInterval(timerInterval); // Clear previous timer
-            startTimer(); // Start the timer for the new question
-
-            // Here you would also update the question text and answers based on currentQuestion
-            // This is where you would fetch the next question's data and update the UI accordingly
-        }
-
-        // Start the timer when the page loads
-        window.onload = function() {
-            startTimer();
-        };
+    <script src="../js/quiz.js">
+       
     </script>
 </body>
 </html>

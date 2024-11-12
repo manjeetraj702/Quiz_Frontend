@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="text-gray-200 bg-cover md:bg-no-repeat" style="background-image: url('../img/backg.jpg');">
+
+    <div id="loader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
+        <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+
+    <header>
+        <nav class="h-16 bg-gradient-to-bl from-indigo-600 to-gray-900 text-center text-2xl md:text-4xl font-extrabold py-2">
+            Quizzo
+        </nav>
+    </header>
+
+    <!-- Responsive Dashboard Layout -->
+    <div class="flex flex-col md:flex-row">
+        
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 bg-gray-900 text-white h-screen p-5 fixed inset-y-0 md:relative transform md:translate-x-0 -translate-x-full md:block transition-transform duration-300" id="sidebar">
+            <h2 class="text-2xl font-bold text-center mb-6">Dashboard</h2>
+            <nav>
+                <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="home">Home</a>
+                <a href="../html/quizList.html" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="quizzes">Quizzes</a>
+                <a href="../html/results.html" class="block py-2 px-4 hover:bg-gray-700 rounded transition" id="reports">Reports</a>
+                <a href="../html/signIn.html" class="block py-2 px-4 hover:bg-red-600 rounded transition" id="logoutButton">Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-5 ml-0 md:ml-64">
+            <button class="md:hidden bg-gray-800 text-white py-2 px-4 rounded mb-4" onclick="toggleSidebar()">Menu</button>
+
+            <nav class="h-20 bg-gray-900 flex items-center justify-center text-white text-2xl md:text-6xl">
+                Quizzes
+            </nav>
+            <div class="container mx-auto mt-5">
+                <div class="mb-4 text-right" id="create-quiz">
+                    <a href="createQuiz.html" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-200">Create New Quiz</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-gray-900 border border-gray-700 shadow-lg rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-gray-800 text-white">
+                                <th class="py-3 px-4 text-left">Quiz Title</th>
+                                <th class="py-3 px-4 text-left">Description</th>
+                                <th class="py-3 px-4 text-left">Duration (mins)</th>
+                                <th class="py-3 px-4 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quizTableBody">
+                            <!-- Dynamic rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/quizList.js"> </script>
+    <script src="../js/common.js"></script>
+    <script>
+        // Toggle sidebar for mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        }
+    </script>
+</body>
+</html>

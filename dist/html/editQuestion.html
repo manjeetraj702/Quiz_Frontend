@@ -1,118 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Quiz</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #1a1a2e; /* Dark background */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Question</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body class="font-roboto">
-    <nav class="h-20 bg-gray-900 text-center text-white text-4xl flex items-center justify-center shadow-md">Admin - Edit Quiz</nav>
-    <div class="container mx-auto p-5 bg-gray-900 rounded-lg shadow-lg">
-        <h3 class="font-bold mb-6 text-center text-2xl text-blue-400">Edit Quiz</h3>
+<body class="font-roboto bg-cover md:bg-no-repeat" style="background-image: url('../img/backg.jpg');">
+  <div id="loader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
+    <!-- Smaller Spinner -->
+    <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+  <nav class="h-20 bg-gray-900 text-center text-white text-4xl flex items-center justify-center shadow-md">Update Question</nav>
+  
+  <div class="container mx-auto bg-gray-900 rounded-lg shadow-lg p-20 mt-10">
+    <h3 class="font-bold mb-6 text-center text-2xl text-blue-400">Update Question</h3>
+    
+    <form id="updateQuestionForm" class="shadow-lg rounded-lg border-4 border-blue-400 bg-gray-800 p-10">
+      <div class="space-y-4">
         
-        <form id="editQuizForm" class="shadow-lg rounded-lg border-4 border-blue-400 bg-gray-800 p-6">
-            <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-300">Quiz Title</label>
-                <input type="text" id="title" name="title" required 
-                       class="mt-1 block w-full border-2 border-blue-400 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500" 
-                       placeholder="Enter quiz title">
-            </div>
+        <div>
+          <label for="questionText" class="block text-blue-400">Question Text</label>
+          <textarea id="questionText" name="questionText" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700 text-white" required></textarea>
+        </div>
+        
+        <!-- Separate input boxes for four options -->
+        <div>
+          <label class="block text-blue-400">Option 1</label>
+          <input type="text" id="option1" name="option1" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700 text-white" required>
+        </div>
+        
+        <div>
+          <label class="block text-blue-400">Option 2</label>
+          <input type="text" id="option2" name="option2" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700 text-white" required>
+        </div>
 
-            <div class="mb-4">
-                <label for="description" class="block text-sm font-medium text-gray-300">Description</label>
-                <textarea name="description" id="description" required
-                          class="mt-1 block w-full border-2 border-blue-400 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500" 
-                          placeholder="Enter quiz description"></textarea>
-            </div>
-            
-            <div class="mb-4">
-                <label for="duration" class="block text-sm font-medium text-gray-300">Duration (minutes)</label>
-                <input type="number" id="duration" name="duration" required 
-                       class="mt-1 block w-full border-2 border-blue-400 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500" 
-                       placeholder="Enter duration in minutes" min="1" max="360">
-            </div>
+        <div>
+          <label class="block text-blue-400">Option 3</label>
+          <input type="text" id="option3" name="option3" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700 text-white" required>
+        </div>
 
-            <h4 class="font-semibold text-lg mb-4 text-gray-300">Questions</h4>
-            <div id="questions-container">
-                <!-- Existing questions will be populated here -->
-            </div>
-            <button type="button" onclick="addQuestion()" 
-                    class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-200 mb-4">
-                Add Question
-            </button>
+        <div>
+          <label class="block text-blue-400">Option 4</label>
+          <input type="text" id="option4" name="option4" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700 text-white" required>
+        </div>
+        
+        <div>
+          <label for="correctOption" class="block text-blue-400">Correct Option (1-4)</label>
+          <input type="number" id="correctOption" name="correctOption" min="1" max="4" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700 text-white" required>
+        </div>
+      </div>
 
-            <button type="submit" 
-                    class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-200">
-                Save Changes
-            </button>
-        </form>
-    </div>
+      <button type="button" onclick="updateQuestion()" class="w-full bg-blue-500 text-white font-semibold py-2 mt-6 rounded-md hover:bg-blue-600 transition duration-200">
+        Update Question
+      </button>
+    </form>
+    
+    <div id="responseMessage" class="mt-4 text-center text-sm text-blue-400"></div>
+  </div>
 
-    <script>
-        function addQuestion() {
-            const questionsContainer = document.getElementById('questions-container');
-            const questionCount = questionsContainer.children.length;
+  <script>
+    async function updateQuestion() {
+      const form = document.getElementById('updateQuestionForm');
+      const data = {
+        questionText: form.questionText.value,
+        options: [
+          form.option1.value,
+          form.option2.value,
+          form.option3.value,
+          form.option4.value
+        ],
+        correctOption: parseInt(form.correctOption.value) - 1  // Adjusting for zero-based index
+      };
 
-            const questionDiv = document.createElement('div');
-            questionDiv.className = "mb-6 border-2 border-blue-400 rounded-md p-4 bg-gray-800 relative";
-
-            questionDiv.innerHTML = `
-                <label for="question_${questionCount}" class="block text-sm font-medium text-gray-300">Question ${questionCount + 1}</label>
-                <input type="text" id="question_${questionCount}" name="questions[${questionCount}][text]" required 
-                       class="mt-1 block w-full border-2 border-blue-400 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500" 
-                       placeholder="Enter question text">
-                
-                <div class="mt-2">
-                    <label class="block text-sm font-medium text-gray-300">Options</label>
-                    <input type="text" name="questions[${questionCount}][options][0]" required 
-                           class="mt-1 block w-full border-2 border-blue-400 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500 mb-2" 
-                           placeholder="Option 1">
-                    <input type="text" name="questions[${questionCount}][options][1]" required 
-                           class="mt-1 block w-full border-2 border-blue-400 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500 mb-2" 
-                           placeholder="Option 2">
-                    <input type="text" name="questions[${questionCount}][options][2]" 
-                           class="mt-1 block w-full border-2 border-blue-400 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500 mb-2" 
-                           placeholder="Option 3">
-                    <input type="text" name="questions[${questionCount}][options][3]" 
-                           class="mt-1 block w-full border-2 border-blue-400 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500 mb-2" 
-                           placeholder="Option 4">
-                </div>
-                <label for="correct_option_${questionCount}" class="block text-sm font-medium text-gray-300">Correct Option</label>
-                <select name="questions[${questionCount}][correct_option]" id="correct_option_${questionCount}" required 
-                        class="mt-1 block w-full border-2 border-blue-400 rounded-md p-2 bg-gray-700 text-gray-200 focus:ring focus:ring-blue-500 mb-4">
-                    <option value="" disabled selected>Select the correct option</option>
-                    <option value="0">Option 1</option>
-                    <option value="1">Option 2</option>
-                    <option value="2">Option 3</option>
-                    <option value="3">Option 4</option>
-                </select>
-
-                <button type="button" onclick="removeQuestion(this)" 
-                        class="w-full bg-red-500 text-white rounded-md py-2 hover:bg-red-600">
-                    Remove Question
-                </button>
-            `;
-            questionsContainer.appendChild(questionDiv);
-        }
-
-        function removeQuestion(button) {
-            const questionDiv = button.parentElement;
-            questionDiv.remove();
-        }
-
-        document.getElementById('editQuizForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Handle quiz update logic here
-            alert('Quiz updated successfully!');
-            // Optionally, you can send the data to your server here
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/question/updateQuestion', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
         });
-    </script>
+        const result = await response.json();
+        document.getElementById('responseMessage').textContent = 'Question updated successfully!';
+      } catch (error) {
+        document.getElementById('responseMessage').textContent = 'Failed to update question.';
+      }
+    }
+  </script>
+
 </body>
 </html>
