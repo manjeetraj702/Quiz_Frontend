@@ -3,39 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Responsive Document</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <style>
-    .bgimg{
-background-image:  url('../img/quizzo.png');
+    .bgimg {
+        background-image: url('../img/quizzo.png');
     }
 </style>
-<body  class="bg-cover bg-no-repeat h-lvh  bgimg " >
+<body class="bg-gradient-to-br from-indigo-800 to-gray-800 bg-cover bg-no-repeat h-screen bgimg flex items-center justify-center">
+    <!-- Loader -->
     <div id="loader" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
-        <!-- Smaller Spinner -->
         <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
+    </div>
+
+    <!-- Centered Image for Mobile -->
+    <div id="centeredImage" class="hidden flex items-center justify-center h-full">
+        <img src="../img/quizzo.png" alt="Quizzo Logo" class="w-1/2">
+    </div>
 
 <script>
-    setTimeout(()=>{
-        window.location.href="signIn.html"
-    },8000)
     function checkScreenSize() {
-    const body = document.getElementsByTagName("body");
-    if (window.innerWidth <= 768) { // Adjust the size as needed
-        element.classList.add("some-class");
-    } else {
-        element.classList.add("some-class");
+        const body = document.querySelector ("body");
+        const centeredImage = document.getElementById("centeredImage");
+
+        if (window.innerWidth <= 768) {
+            body.classList.remove("bgimg");
+          
+            centeredImage.classList.remove("hidden");
+            centeredImage.classList.add("flex"); // Ensure the div is displayed as flex
+        } else {
+            body.classList.add("bgimg");
+            centeredImage.classList.add("hidden");
+        }
     }
-}
 
-// Run on load
-checkScreenSize();
+    // Run on load and window resize
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    setTimeout(() => {
+    window.location.replace("signIn.html");
 
-// Run on window resize
-window.addEventListener("resize", checkScreenSize);
-
+}, 3000);
 </script>
 </body>
 </html>

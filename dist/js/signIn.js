@@ -98,10 +98,21 @@ document.getElementById('signInForm').addEventListener('submit', function (event
 });
 //loader
 function showLoader() {
-    document.getElementById("loader").classList.remove("hidden");
-  }
-  
-  // Function to hide loader
-  function hideLoader() {
-    document.getElementById("loader").classList.add("hidden");
-  }
+    const loaderElement = document.getElementById("loader");
+    if (loaderElement && loaderElement.classList.contains("hidden")) {
+        console.log("Showing loader");
+        loaderElement.classList.remove("hidden");
+    } else {
+        console.log("Loader is already visible");
+    }
+}
+
+function hideLoader() {
+    const loaderElement = document.getElementById("loader");
+    if (loaderElement && !loaderElement.classList.contains("hidden")) {
+        console.log("Hiding loader");
+        loaderElement.classList.add("hidden");
+    } else {
+        console.log("Loader is already hidden");
+    }
+}

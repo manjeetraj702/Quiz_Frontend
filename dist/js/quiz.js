@@ -8,12 +8,13 @@ function showLoader() {
     document.getElementById("loader").classList.add("hidden");
   }
   const quizId = sessionStorage.getItem('quiz_id'); 
+  const quizDuration = sessionStorage.getItem('quiz_duration'); 
    // Get quiz ID from sessionStorage
 
   let questions = [];  // Initialize empty array to hold questions from API
   let currentQuestion = 0;
   let totalQuestions = 0;
-  let totalTime = 600; // Total quiz time in seconds
+  let totalTime = 60*quizDuration; // Total quiz time in seconds
   let timeLeft = totalTime;
   let timerInterval;
   const userAnswers = [];  // Store user's answers

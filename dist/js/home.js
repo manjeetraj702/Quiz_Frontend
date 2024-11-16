@@ -6,10 +6,10 @@ if (userData) {
 
   const userRole = userData.role;
   const userId = userData.userId;
-showLoader()
-  if (userRole === 'admin') {
-    const url = `http://localhost:8080/api/v1/Quiz/getAllQuizByUserId?userId=${userId}`;
 
+  if (userRole === 'admin') {
+    const url = `http://localhost:8080/api/v1/Quiz/getAllQuizByAdminId?adminId=${userId}`;
+    showLoader()
     fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -68,6 +68,7 @@ showLoader()
 } else {
   console.log('User data not found in sessionStorage.');
 }
+// }
 //loader
 function showLoader() {
   document.getElementById("loader").classList.remove("hidden");

@@ -7,15 +7,83 @@ const createButton = document.getElementById('create-quiz');
 if (role === "student") {
     createButton.classList.add('hidden');
 }
+let quizzes = JSON.parse(sessionStorage.getItem("quizzes"))
 
-// Parse quizzes from sessionStorage and access the correct array
-let quizzesData = JSON.parse(sessionStorage.getItem('quizzes') || '{}');
-let quizzes = quizzesData || [];
-console.log(quizzesData) // Default to empty array if activeQuizzes is missing
+function getAllQuizByAdminId()
+{
+    showLoader()
+    const url = `http://localhost:8080/api/v1/Quiz/getAllQuizByAdminId?adminId=${userId}`;
+    showLoader()
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Fetched data:', data.data);
+        quizzes=data.data;
+      }).catch(error=>{
+        console.log(error)
+      }).finally(()=>{
+        hideLoader
+      });
+
+}
+
+function getAllActiveQuizByAdminId()
+{
+    showLoader()
+    const url = `http://localhost:8080/api/v1/Quiz/getAllActiveQuizByAdminId?adminId=${userId}`;
+    showLoader()
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Fetched data:', data.data);
+        quizzes=data.data;
+      }).catch(error=>{
+        console.log(error)
+      }).finally(()=>{
+        hideLoader
+      });
+
+}
+
+function getAllInActiveQuizByAdminId()
+{
+    showLoader()
+    const url = `http://localhost:8080/api/v1/Quiz/getAllQuizByAdminId?adminId=${userId}`;
+    showLoader()
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Fetched data:', data.data);
+        quizzes=data.data;
+      }).catch(error=>{
+        console.log(error)
+      }).finally(()=>{
+        hideLoader
+      });
+
+}
+
+
 
 function renderQuizzes() {
     const tableBody = document.getElementById("quizTableBody");
     tableBody.innerHTML = ""; 
+   
 
     quizzes.forEach(quiz => {
         // Create the <tr> element for the row
@@ -43,15 +111,21 @@ function renderQuizzes() {
             const playButton = document.createElement('a');
             playButton.classList.add('bg-green-500', 'text-white', 'py-1', 'px-2', 'rounded', 'hover:bg-green-600', 'transition', 'duration-200');
             playButton.textContent = 'Play';
-            playButton.onclick = () => quizPlay(quiz.id,quiz.title); // Set the onclick event
+            playButton.onclick = () => quizPlay(quiz.id,quiz.title, quiz.durationInMinutes); // Set the onclick event
     
             actionCell.appendChild(playButton); // Append the Play button to the action cell
         } else {
-            const editButton = document.createElement('a');
+            const editButton = document.createElement('button');
             editButton.classList.add('bg-yellow-400', 'text-gray-900', 'py-1', 'px-2', 'rounded', 'hover:bg-yellow-500', 'transition', 'duration-200');
-            editButton.textContent = 'Edit';
-            editButton.href = `/edit-quiz/${quiz.id}`; // Set the link to the edit page
-    
+            
+            let a = 'InActive';
+            if(quiz.active)
+            {
+                a ='Active'
+            }
+            editButton.textContent = a;
+            editButton.onclick=()=>changeActiveStatus(userId,quiz.id)
+        
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('bg-red-600', 'text-white', 'py-1', 'px-2', 'rounded', 'hover:bg-red-700', 'ml-2', 'transition', 'duration-200');
             deleteButton.textContent = 'Delete';
@@ -74,19 +148,20 @@ function renderQuizzes() {
     
 }
 
-function quizPlay(quiz_id,quiz_title) {
+function quizPlay(quiz_id,quiz_title,durationInMinutes) {
     console.log(quiz_id)
     sessionStorage.setItem('quiz_id', quiz_id);
     sessionStorage.setItem('quiz_title', quiz_title);
+    sessionStorage.setItem('quiz_duration', durationInMinutes);
     window.location.href = 'quiz.html';
 }
 
-function deleteQuiz( quizId) {
+function deleteQuiz(quizId) {
     // Show confirmation prompt before deletion
     if (!confirm("Are you sure you want to delete this quiz?")) return;
     showLoader()
     // Make the DELETE request
-    fetch(`http://localhost:8080/api/v1/Quiz/deleteQuiz?userId=${userId}&quizId=${quizId}`, {
+    fetch(`http://localhost:8080/api/v1/Quiz/deleteQuiz?adminId=${userId}&quizId=${quizId}`, {
         method: 'DELETE',
         headers: {
             'accept': '*/*'
@@ -95,6 +170,7 @@ function deleteQuiz( quizId) {
     .then(response => {
         if (response.ok) {
             alert("Quiz deleted successfully.");
+            refreshQuizzes()
             // Optionally, refresh the page or remove the deleted quiz from the UI here
         } else {
             return response.json().then(errorData => {
@@ -109,7 +185,48 @@ function deleteQuiz( quizId) {
     {
         hideLoader()
     });
+  
+}
+
+function refreshQuizzes()
+{
+  if(select =="ALL")
+    {
+        getAllActiveQuizByUserId();
+    }
+    else if(select == 'ACTIVE')
+    {
+        getAllActiveQuizByUserId();
+    }
+    else{
+        getAllInActiveQuizByUserId();
+    }
     renderQuizzes();
+}
+
+async function changeActiveStatus(userId, quiz_id) {
+  showLoader();
+  try {
+      const response = await fetch(`http://localhost:8080/api/v1/Quiz/updateQuizStatus?adminId=${userId}&quizId=${quiz_id}`, {
+          method: 'PUT',
+          headers: {
+              'accept': '*/*'
+          }
+      });
+
+      if (response.ok) {
+          alert("Quiz status changed successfully.");
+          refreshQuizzes();  // Refresh the quiz list or update UI here
+      } else {
+          const errorData = await response.json();
+          throw new Error(errorData.errorMessage || "Failed to change the quiz status.");
+      }
+  } catch (error) {
+      console.error("Error updating quiz status:", error);
+      alert(error.message || "An error occurred while updating the quiz status.");
+  } finally {
+      hideLoader();
+  }
 }
 
 

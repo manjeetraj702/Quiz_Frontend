@@ -36,25 +36,10 @@ if (userdata.role == 'student') {
 }
 else {
     reports.classList.add('hidden')
-    showLoader()
-    quizzes.addEventListener('click', () => {
-        const url = `http://localhost:8080/api/v1/Quiz/getAllQuizByUserId?userId=${userId}`;
-
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            }).then(
-                data => {
-                    sessionStorage.setItem('quizzes', JSON.stringify(data))
-                    window.location.href("../html/quizList.html")
-                }
-            ).finally(()=>
-            {
-                hideLoader()
-            })
+    
+    quizzes1.addEventListener('click', () => {
+        window.location.href("../html/quizList.html")
+        
     })
 }
 

@@ -54,7 +54,7 @@ function submitQuestions() {
 
     // Helper function to send a single question
    async function sendQuestion(question) {
-        showLoader()
+        // showLoader()
         return fetch('http://localhost:8080/api/v1/question/createQuestion', {
             method: 'POST',
             headers: {
@@ -83,7 +83,7 @@ function submitQuestions() {
             alert('Error submitting questions. Please try again.');
         })
         .finally(() => {
-            hideLoader()
+            // hideLoader()
             // Hide loading indicator
             document.getElementById('loading-indicator').style.display = 'none';
         });
@@ -143,11 +143,22 @@ function removeQuestion(button) {
 // Optional loading indicator (HTML)
 document.body.innerHTML += `<div id="loading-indicator" style="display: none;">Submitting...</div>`;
 //loader
-function showLoader() {
-    document.getElementById("loader").classList.remove("hidden");
-  }
-  
-  // Function to hide loader
-  function hideLoader() {
-    document.getElementById("loader").classList.add("hidden");
-  }
+// function showLoader() {
+//     const loaderElement = document.getElementById("loader");
+//     if (loaderElement && loaderElement.classList.contains("hidden")) {
+//         console.log("Showing loader");
+//         loaderElement.classList.remove("hidden");
+//     } else {
+//         console.log("Loader is already visible");
+//     }
+// }
+
+// function hideLoader() {
+//     const loaderElement = document.getElementById("loader");
+//     if (loaderElement && !loaderElement.classList.contains("hidden")) {
+//         console.log("Hiding loader");
+//         loaderElement.classList.add("hidden");
+//     } else {
+//         console.log("Loader is already hidden");
+//     }
+// }
